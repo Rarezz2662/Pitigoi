@@ -713,6 +713,7 @@ img.art{object-fit:cover}
 .newing{padding:12px;display:flex;flex-direction:column;gap:10px;background:var(--surface2)}.newing select{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:9px;color:var(--ink);font:inherit}
 
 /* ===== Afișare pe iPhone, iPad și PC ===== */
+@media (min-width:700px){.store,.appl{aspect-ratio:auto;min-height:110px}.wrap:has(>.qhead),.welcome{max-width:680px!important}.ctabar>.wrap,.ctabar>*{max-width:680px;margin-inline:auto}}
 .welcome{min-height:100vh;min-height:100dvh;justify-content:center;padding-top:calc(28px + env(safe-area-inset-top,0px))}
 .welcome .preview{width:100%;max-width:480px;align-self:center}
 .welcome .wtitle,.welcome>p{max-width:480px;align-self:center}
@@ -733,7 +734,7 @@ button,a{-webkit-tap-highlight-color:transparent}
   .toast{bottom:32px}
 }
 @media (min-width:1100px){
-  body{padding-left:232px}
+  body:has(nav.tabs){padding-left:232px}
   .wrap,.rbody{max-width:980px}
   .tabs{top:0;bottom:0;right:auto;width:232px;border-top:0;border-right:1px solid var(--line);padding:calc(24px + env(safe-area-inset-top,0px)) 14px 24px}
   .tabs .in{display:flex;flex-direction:column;gap:6px;max-width:none}
@@ -741,8 +742,7 @@ button,a{-webkit-tap-highlight-color:transparent}
   .tabs button[aria-selected="true"]{background:var(--mint-soft)}
   .main{padding-bottom:48px}
   .main>.stack.g12:has(>.mcard){grid-template-columns:1fr 1fr}
-  .ctabar{left:232px}
-  .ctabar>*{max-width:760px;margin-inline:auto}
+  body:has(nav.tabs) .ctabar{left:232px}
 }
 </style>
 
