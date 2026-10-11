@@ -713,6 +713,9 @@ img.art{object-fit:cover}
 .newing{padding:12px;display:flex;flex-direction:column;gap:10px;background:var(--surface2)}.newing select{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:9px;color:var(--ink);font:inherit}
 
 /* ===== Afișare pe iPhone, iPad și PC ===== */
+.welcome{min-height:100vh;min-height:100dvh;justify-content:center;padding-top:calc(28px + env(safe-area-inset-top,0px))}
+.welcome .preview{width:100%;max-width:480px;align-self:center}
+.welcome .wtitle,.welcome>p{max-width:480px;align-self:center}
 .apphead{padding-top:calc(14px + env(safe-area-inset-top,0px))}
 .wrap{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
 @supports (-webkit-touch-callout:none){input,select,textarea{font-size:16px!important}}
@@ -2909,7 +2912,8 @@ function exampleWeek(){if(!EXAMPLE){const pr=JSON.parse(JSON.stringify(DEF));pr.
 
 /* ===== Temă ===== */
 let THEME='auto';try{THEME=localStorage.getItem('pitigoi.theme')||'auto'}catch(e){}
-function applyTheme(){const r=document.documentElement;if(!r)return;if(THEME==='auto')r.removeAttribute('data-theme');else r.setAttribute('data-theme',THEME)}
+function applyTheme(){const r=document.documentElement;if(!r)return;if(THEME==='auto')r.removeAttribute('data-theme');else r.setAttribute('data-theme',THEME);try{const bg=getComputedStyle(r).getPropertyValue('--bg').trim()||'#f3f5f0';let m=document.querySelector('meta[name="theme-color"]:not([media])');if(!m){document.querySelectorAll('meta[name="theme-color"]').forEach(x=>x.remove());m=document.createElement('meta');m.name='theme-color';document.head.appendChild(m)}m.content=bg;document.body&&(document.body.style.background=bg)}catch(e){}}
+try{matchMedia('(prefers-color-scheme: dark)').addEventListener('change',()=>applyTheme())}catch(e){}
 applyTheme();
 function setTheme(t){THEME=t;try{localStorage.setItem('pitigoi.theme',t)}catch(e){}applyTheme();render()}
 
