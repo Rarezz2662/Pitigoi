@@ -1736,7 +1736,7 @@ function targets(pr){const c=calcTargets(pr);const protein=pr.protSet||c.protein
 /* ===== Filtrare ===== */
 const DIETS={omni:{n:'Fără restricții',ex:[]},veg:{n:'Vegetarian',ex:['poultry','red','fish']},vegan:{n:'Vegan',ex:['poultry','red','fish','egg','dairy','honey']},pesc:{n:'Pescetarian',ex:['poultry','red']}};
 const RESTR={pork:'Fără porc',red:'Fără carne roșie',gluten:'Fără gluten',dairy:'Fără lactate',egg:'Fără ouă',nuts:'Fără nuci'};
-const LEANS={fiber:'Bogat în fibre',diab:'Carbohidrați lenți',heart:'Puține grăsimi saturate',pcos:'Glicemie echilibrată',inflam:'Bogat în omega-3 și legume'};
+const LEANS={fiber:'Bogat în fibre',diab:'Prietenos cu diabetul',heart:'Bun pentru inimă',pcos:'Prietenos cu SOPK',inflam:'Antiinflamator'};
 const ALLERG={dairy:'Lactate',egg:'Ou',peanut:'Arahide',nuts:'Nuci',gluten:'Grâu / gluten',soy:'Soia',fish:'Pește',shellfish:'Crustacee',sesame:'Susan',celery:'Țelină',mustard:'Muștar',corn:'Porumb'};
 function exclTags(pr){return new Set([...DIETS[pr.diet].ex,...pr.restr,...pr.allergies])}
 function allowed(r,pr,ex){
