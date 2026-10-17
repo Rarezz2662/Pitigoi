@@ -715,6 +715,13 @@ img.art{object-fit:cover}
 .newing{padding:12px;display:flex;flex-direction:column;gap:10px;background:var(--surface2)}.newing select{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:9px;color:var(--ink);font:inherit}
 
 .banner.cook{border:1px solid var(--mint-line)}
+.scbars{display:inline-flex;gap:3px;align-items:flex-end;vertical-align:middle}.scbars i{display:block;width:6px;border-radius:3px;background:var(--line)}.scbars i:nth-child(1){height:7px}.scbars i:nth-child(2){height:10px}.scbars i:nth-child(3){height:13px}.scbars i:nth-child(4){height:16px}.scbars i.on{background:var(--mint)}
+.scbars.big{gap:6px}.scbars.big i{width:14px;border-radius:5px}.scbars.big i:nth-child(1){height:18px}.scbars.big i:nth-child(2){height:28px}.scbars.big i:nth-child(3){height:38px}.scbars.big i:nth-child(4){height:48px}
+.scword{font-size:.8rem;margin-left:4px}.scbigword{font-size:1.4rem;font-family:var(--f-d);margin-left:10px}.scbigscale{align-items:flex-end}
+.legal{display:flex;flex-direction:column;gap:10px;font-size:.92rem;line-height:1.55}.legal h3{margin:10px 0 0;font-size:1rem}.legal p{margin:0}.legal ul{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px}
+.consentrow{display:grid;grid-template-columns:24px 1fr;gap:10px;align-items:start;font-size:.88rem;line-height:1.45;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:14px}.consentrow input{width:22px;height:22px;margin:0;accent-color:var(--mint)}.consentrow .link{font-size:inherit;padding:0}
+.legallinks{display:flex;flex-wrap:wrap;justify-content:center;gap:6px;font-size:.78rem;color:var(--muted)}.legallinks .link{font-size:.78rem;color:var(--muted)}.legallinks.foot{margin-top:8px}
+.cta.danger{background:var(--red);color:#fff}
 /* ===== Afișare pe iPhone, iPad și PC ===== */
 @media (min-width:700px){.store,.appl{aspect-ratio:auto;min-height:110px}.wrap:has(>.qhead),.welcome{max-width:680px!important}.ctabar>.wrap,.ctabar>*{max-width:680px;margin-inline:auto}}
 .welcome{min-height:100vh;min-height:100dvh;justify-content:center;padding-top:calc(28px + env(safe-area-inset-top,0px))}
@@ -1729,7 +1736,7 @@ function targets(pr){const c=calcTargets(pr);const protein=pr.protSet||c.protein
 /* ===== Filtrare ===== */
 const DIETS={omni:{n:'Fără restricții',ex:[]},veg:{n:'Vegetarian',ex:['poultry','red','fish']},vegan:{n:'Vegan',ex:['poultry','red','fish','egg','dairy','honey']},pesc:{n:'Pescetarian',ex:['poultry','red']}};
 const RESTR={pork:'Fără porc',red:'Fără carne roșie',gluten:'Fără gluten',dairy:'Fără lactate',egg:'Fără ouă',nuts:'Fără nuci'};
-const LEANS={fiber:'Bogat în fibre',diab:'Prietenos cu diabetul',heart:'Bun pentru inimă',pcos:'Prietenos cu SOPK',inflam:'Antiinflamator'};
+const LEANS={fiber:'Bogat în fibre',diab:'Carbohidrați lenți',heart:'Puține grăsimi saturate',pcos:'Glicemie echilibrată',inflam:'Bogat în omega-3 și legume'};
 const ALLERG={dairy:'Lactate',egg:'Ou',peanut:'Arahide',nuts:'Nuci',gluten:'Grâu / gluten',soy:'Soia',fish:'Pește',shellfish:'Crustacee',sesame:'Susan',celery:'Țelină',mustard:'Muștar',corn:'Porumb'};
 function exclTags(pr){return new Set([...DIETS[pr.diet].ex,...pr.restr,...pr.allergies])}
 function allowed(r,pr,ex){
@@ -2985,6 +2992,7 @@ const QS={
  basics(d){return`<h2>Bazele</h2><p class="sub">Formula are nevoie de patru numere. Iată primele două.</p>
   <div class="tiles"><button class="tile" aria-pressed="${d.sex==='m'}" data-act="q-sex" data-v="m">${TICK}${I_('mars')}Bărbat</button><button class="tile" aria-pressed="${d.sex==='f'}" data-act="q-sex" data-v="f">${TICK}${I_('venus')}Femeie</button></div>
   <div class="card dial"><span class="eyebrow" style="align-self:flex-start">Vârstă</span><span class="bignum"><span id="vAge">${d.age}</span><small>ani</small></span><div class="ruler" aria-hidden="true"></div><input id="rAge" type="range" min="16" max="85" step="1" value="${d.age}" aria-label="Vârstă"></div>
+  ${typeof pregHtml==='function'?pregHtml(d):''}
   <p class="note">${I_('lock')}<span>Amândouă intră doar în formula din pașii următori. Nimic altceva.</span></p>`},
  body(d){return`<h2>Încă două numere</h2><p class="sub">Înălțimea și greutatea de acum. Le poți schimba oricând.</p>
   <div class="card dial"><span class="eyebrow" style="align-self:flex-start">Înălțime</span><span class="bignum"><span id="vH">${d.height}</span><small>cm</small></span><input id="rH" type="range" min="140" max="210" step="1" value="${d.height}" aria-label="Înălțime în centimetri"></div>
@@ -3131,7 +3139,7 @@ function renderWelcome(){
   <div class="card preview">${dayCard(ex.plan,0,T,{mini:true})}</div>
   <h1 class="wtitle">Mesele săptămânii, deja hotărâte</h1>
   <p class="muted" style="text-align:center">Proteinele și caloriile ies în fiecare zi, verificate prin calcul, la magazinul tău și în bugetul tău.</p>
-  </div><div class="ctabar"><div class="wrap"><button class="cta" data-act="w-start">Începe</button><button class="link small" data-act="w-example">Vezi întâi o săptămână exemplu</button>${S.onboarded?`<button class="link small" data-act="w-back">Înapoi la planul meu</button>`:''}</div></div>`;
+  </div><div class="ctabar"><div class="wrap"><button class="cta" data-act="w-start">Începe</button><button class="link small" data-act="w-example">Vezi întâi o săptămână exemplu</button>${typeof legalLinksHtml==='function'?legalLinksHtml():''}${S.onboarded?`<button class="link small" data-act="w-back">Înapoi la planul meu</button>`:''}</div></div>`;
 }
 
 /* ===== Aplicația ===== */
@@ -3219,7 +3227,7 @@ function renderWeek(T){
   const reps=ids.map(id=>[id,planCount(id)]).filter(([id,n])=>n>1&&RX[id].type!=='s').sort((a,b)=>b[1]-a[1]);
   const sts=plan.days.map(d=>dayStatus(d,T)).filter(Boolean);const okN=sts.filter(s=>s.ok).length;
   let h=`<div class="row" style="justify-content:flex-end"><button class="btn sm ghost" data-act="regen">${I_('repeat')}Altă săptămână</button></div>`;
-  h+=`<div class="card wsum"><div><div class="n">${ids.length}</div><span class="xs muted">feluri</span></div><div><div class="n">${meals}</div><span class="xs muted">mese</span></div><div><div class="n" style="color:${okN===sts.length?'var(--mint)':'var(--red)'}">${okN}/${sts.length}</div><span class="xs muted">zile în parametri</span></div>${reps.length?`<p class="note">${I_('repeat')}<span>${reps.length} ${reps.length===1?'fel se repetă':'feluri se repetă'}: ${reps.slice(0,3).map(([id,n])=>`${esc(RX[id].n)} de ${n} ori`).join(', ')}. Gătești o dată și ajunge pentru toate.</span></p>`:''}</div>`;
+  h+=`<div class="card wsum"><div><div class="n">${ids.length}</div><span class="xs muted">feluri</span></div><div><div class="n">${meals}</div><span class="xs muted">mese</span></div><div><div class="n" style="color:${okN===sts.length?'var(--mint)':'var(--red)'}">${okN}/${sts.length}</div><span class="xs muted">zile în parametri</span></div>${reps.length?`<p class="note">${I_('repeat')}<span>${reps.length} ${reps.length===1?'fel se repetă':'feluri se repetă'}: ${reps.slice(0,3).map(([id,n])=>`${esc(RX[id].n)} de ${n} ori`).join(', ')}. Gătești o dată și ajunge pentru toate.</span>${typeof legalLinksHtml==='function'?legalLinksHtml('foot'):''}</p>`:''}</div>`;
   const miss=plan.days.map((d,i)=>[d,i,dayStatus(d,T)]).filter(([d,,s])=>s&&!s.ok);
   if(miss.length)h+=`<div class="banner" style="background:var(--red-soft)">${I_('info')}<div class="t"><b>${miss.length} ${miss.length===1?'zi iese':'zile ies'} din parametri</b>${miss.map(([d,,s])=>`${WD[wdIdx(d.date)]}: ${f0(s.p)} g, ${f0(s.k)} kcal`).join(' · ')}. Schimbă o masă din ziua respectivă sau cere altă săptămână.</div></div>`;
   h+=plan.days.map((d,i)=>`<section class="card">${dayCard(plan,i,T,{})}</section>`).join('');
@@ -3286,7 +3294,7 @@ function renderLib(){
   <button class="libbig ${LIBP==='imp'?'open':''}" data-act="libp" data-v="imp" aria-expanded="${LIBP==='imp'}">${I_('pencil')}<span><b>Importă rețeta</b><small>Din text sau din poze</small></span>${I_(LIBP==='imp'?'x':'chev','chev')}</button>
   ${LIBP==='imp'?impPanelHtml():''}</div>
   <label class="search">${I_('search')}<input id="libq" type="search" placeholder="Caută: ciorbă, somon, ovăz…" value="${esc(LIB.q)}" aria-label="Caută rețete"></label>
-  <div class="seg" role="group" aria-label="Filtru">${[['all','Toate'],['b','Mic dejun'],['m','Prânz și cină'],['s','Gustări'],['des','Deserturi'],['film','Pentru film'],['z','Sosuri'],['ig','De la creatori'],['fav',`Favorite (${S.favs.length})`],['mine',`Ale mele (${S.custom.length})`]].map(([k,n])=>`<button aria-pressed="${LIB.f===k}" data-act="libf" data-v="${k}">${n}</button>`).join('')}</div>
+  <div class="seg" role="group" aria-label="Filtru">${[['all','Toate'],['b','Mic dejun'],['m','Prânz și cină'],['s','Gustări'],['des','Deserturi'],['film','Pentru film'],['z','Sosuri'],['ig','Rețete virale'],['fav',`Favorite (${S.favs.length})`],['mine',`Ale mele (${S.custom.length})`]].map(([k,n])=>`<button aria-pressed="${LIB.f===k}" data-act="libf" data-v="${k}">${n}</button>`).join('')}</div>
   <section class="card" id="liblist"></section>`;
 }
 function renderLibList(){const el=$('#liblist');if(!el)return;const rs=libFiltered();
@@ -3722,14 +3730,16 @@ function heroSVG(r){const u=photoFor(r);return u?`<img class="art" alt="" data-o
 const todayI=()=>todayIso();
 function scoreChip(r){if(!r||r.type==='z')return'';const s=scoreAD(r);return`<span class="sc sc-${s.g}" title="Scor Crumbkin ${s.g}">${s.g}</span>`}
 function ingName(id){if(id==='whey'){const fl=S.profile.week&&S.profile.week.flavor;return`Proteină whey${fl&&WHEY_FL[fl]?` (${WHEY_FL[fl]})`:''}`}return ING[id].n}
-const credit=c=>c?`<span class="credit">Idee de la <b>@${esc(c)}</b></span>`:'';
+const credit=c=>'';
 function recipeExtras(r,ctx){
   if(ctx.example)return credit(r.cr);
   const chips=`${r.movie?`<span class="chip">${I_('film','tiny')}bun la film</span>`:''}${typeof leanChips==='function'?leanChips(r):''}`;
   return`${credit(r.cr)}${chips.trim()?`<div class="row g8 wrapx">${chips}</div>`:''}`;
 }
 function tasteBtnsHtml(r){const tv=S.taste[r.id]||0;return`<span class="vbar" aria-hidden="true"></span><button class="iconbtn ${tv>0?'on':''}" data-act="taste" data-v="${r.id}" data-s="1" aria-pressed="${tv>0}" aria-label="Îmi place">${I_('up')}</button><button class="iconbtn ${tv<0?'on dn':''}" data-act="taste" data-v="${r.id}" data-s="-1" aria-pressed="${tv<0}" aria-label="Nu-mi place">${I_('dn')}</button>`}
-function scoreScaleHtml(r){const s=scoreAD(r);return`<button class="scscale" data-act="scoreinfo" data-v="${r.id}" aria-label="Scor nutrițional ${s.g}. Atinge pentru explicații"><span class="sclbl">Scor nutrițional</span>${['A','B','C','D'].map(g=>`<span class="scg sc-${g} ${g===s.g?'cur':''}">${g}</span>`).join('')}${I_('info','tiny')}</button>`}
+const SCW={A:'Excelent',B:'Bun',C:'Din când în când',D:'Rar'},SCN={A:4,B:3,C:2,D:1};
+function scBars(g,cls){const n=SCN[g]||1;return`<span class="scbars ${cls||''}" aria-hidden="true">${[1,2,3,4].map(i=>`<i class="${i<=n?'on':''}"></i>`).join('')}</span>`}
+function scoreScaleHtml(r){const s=scoreAD(r);return`<button class="scscale" data-act="scoreinfo" data-v="${r.id}" aria-label="Scor nutrițional: ${SCW[s.g]}. Atinge pentru explicații"><span class="sclbl">Scor</span>${scBars(s.g)}<b class="scword">${SCW[s.g]}</b>${I_('info','tiny')}</button>`}
 function saucesHtml(r){const ids=saucesFor(r).filter(id=>RX[id]);if(!ids.length)return'';
   return`<section class="card pad sauces"><div class="rvh"><b>Sosuri care merg</b></div><div class="chips">${ids.map(id=>{const t=totalsOf(RX[id].items);return`<button class="pchip" data-act="recipe" data-v="${id}">${esc(RX[id].n)} <span class="muted num">· ${f0(t.k)} kcal</span></button>`}).join('')}</div></section>`}
 
@@ -3968,12 +3978,12 @@ function tasteCardHtml(){const likes=Object.values(S.taste).filter(v=>v>0).lengt
 function meExtrasHtml(){
   const hs=S.profile.hs,P=S.profile.pills;const sw=(k,l)=>`<div class="switchrow"><span class="lbl">${l}</span><button class="switch" role="switch" aria-checked="${!!hs[k]}" data-act="hs" data-v="${k}" aria-label="${l}"></button></div>`;
   const plist=(k,l)=>`<div class="stack g4" style="padding:4px 16px 12px"><span class="eyebrow">${l}</span>${(P[k]||[]).map((n,j)=>`<div class="row between small"><span>${esc(n)}</span><button class="iconbtn" data-act="pilldel" data-v="${k}" data-s="${j}" aria-label="Scoate ${esc(n)}">${I_('x')}</button></div>`).join('')}<div class="row g8"><div class="field" style="flex:1"><input id="pillIn-${k}" placeholder="ex. Vitamina D 2000 UI" aria-label="Adaugă ${l.toLowerCase()}"></div><button class="btn sm" data-act="pilladd" data-v="${k}">Adaugă</button></div></div>`;
-  return`<div class="eyebrow">În tab-ul Sănătate</div>
+  return`${S.profile.sex==='f'?`<div class="eyebrow">Siguranță</div>${pregHtml(S.profile)}`:''}<div class="eyebrow">În tab-ul Sănătate</div>
   <div class="card">${sw('water','Hidratare')}${sw('pillsM','Pastile dimineața')}${hs.pillsM?plist('m','Dimineața'):''}${sw('pillsE','Pastile seara')}${hs.pillsE?plist('e','Seara'):''}${sw('weighDaily','Amintire zilnică pentru cântar')}</div>
   <div class="card pad stack g8"><b>${I_('bell','tiny')} Notificări</b><div class="row g8 wrapx"><span class="small">Plan nou pentru săptămâna următoare, în fiecare</span><div class="field"><select id="notifDay" aria-label="Ziua notificării">${WD.map((n,w)=>`<option value="${w}" ${hs.notifDay===w?'selected':''}>${n.toLowerCase()}</option>`).join('')}</select></div><span class="small">la</span><div class="field"><input id="notifTime" type="time" value="${hs.notifTime}" aria-label="Ora notificării"></div></div><span class="xs muted">Le salvez acum; notificările pe telefon pornesc după ce urcăm aplicația online.</span></div>
   <div class="eyebrow">Temă</div>
   <div class="themeseg" role="group" aria-label="Temă">${[['auto','auto','Automată'],['light','sun','Deschisă'],['dark','moon','Întunecată']].map(([k,ic,n])=>`<button aria-pressed="${THEME===k}" data-act="theme" data-v="${k}">${I_(ic)}${n}</button>`).join('')}</div>
-  <div class="card pad stack g8"><b>Alege o pasăre</b><div class="birds" role="group" aria-label="Pasărea aplicației">${BIRDS.map(([k,n])=>`<button class="birdbtn" aria-pressed="${BIRD_V===k}" data-act="bird" data-v="${k}">${birdSVG(k)}<span class="xs">${n}</span></button>`).join('')}</div></div>
+
   <div class="card pad stack g8"><b>${I_('dl','tiny')} Backup</b><span class="small muted">Tot ce ai (plan, jurnal, cântăriri, prețuri, rețete, gusturi) într-un fișier. Îl poți pune înapoi pe alt telefon sau după ce ștergi datele browserului.</span><div class="row g8 wrapx"><button class="btn sm" data-act="bkexport">${I_('dl')}Salvează backup</button><label class="btn sm" style="cursor:pointer">${I_('ul')}Încarcă backup<input type="file" accept="application/json,.json" id="bkFile" hidden></label></div></div>
   <p class="xs muted">Planul, jurnalul, prețurile și rețetele tale stau doar în acest browser.</p>`;
 }
@@ -3998,6 +4008,10 @@ function renderMe(T){
    <button class="arow merow" data-act="hownums">${I_('calc')}<span>Cum funcționează cifrele</span><span></span>${I_('chev','chev')}</button>
    <button class="arow merow" data-act="w-example">${I_('eye')}<span>Vezi o săptămână exemplu</span><span></span>${I_('chev','chev')}</button>
    <button class="arow merow" data-act="me-quiz">${I_('repeat')}<span>Reia chestionarul de la început</span><span></span>${I_('chev','chev')}</button>
+   <button class="arow merow" data-act="legal" data-v="privacy">${I_('lock')}<span>Confidențialitate și date</span><span></span>${I_('chev','chev')}</button>
+   <button class="arow merow" data-act="legal" data-v="medical">${I_('heartp')}<span>Disclaimer medical</span><span></span>${I_('chev','chev')}</button>
+   <button class="arow merow" data-act="legal" data-v="terms">${I_('book')}<span>Termeni și condiții</span><span></span>${I_('chev','chev')}</button>
+   <button class="arow merow danger" data-act="wipe">${I_('trash')}<span>Șterge-mi toate datele</span><span></span><span></span></button>
    <button class="arow merow danger" data-act="me-reset">${I_('trash')}<span>${RESET_ARM?'Atinge încă o dată ca să ștergi tot':'Șterge tot și ia-o de la capăt'}</span><span></span><span></span></button>
   </div>
   <div class="resetnote">${I_('info')}<div class="stack g8"><b>Atenție la „Șterge tot și ia-o de la capăt”</b><span>Resetează toată aplicația, pe toate dispozitivele tale: profilul, toate preferințele și răspunsurile, planul, bifele, mesele extra, lista de cumpărături și datele de sănătate. Rămân doar rețetele tale, favoritele și prețurile corectate de tine.</span><span>Dacă vrei doar să corectezi ceva, folosește <b>Răspunsurile tale</b> (un singur răspuns) sau <b>Reia chestionarul de la început</b> (tot chestionarul). Amândouă refac săptămâna curentă cu noile răspunsuri și nu șterg nimic altceva.</span></div></div>`;
@@ -4039,9 +4053,9 @@ document.addEventListener('click',e=>{
      const line=(n,val,pts,max,hint)=>`<div class="scl"><span><b>${n}</b><span class="xs muted">${hint}</span></span><span class="num">${val}</span><span class="scpts ${pts>0?'pl':pts<0?'mi':''}">${pts>0?'+':''}${pts}${max?`<small>/${max}</small>`:''}</span></div>`;
      const pP=pd>=8?3:pd>=6?2:pd>=4?1:0,pF=fd>=14?2:fd>=8?1:0,pV=t.veg>=200?2:t.veg>=100?1:0,pG=-(fatP>.45?2:fatP>.35?1:0),pPr=-(proc>40?2:proc>0?1:0),pS=-(sug>25?2:sug>10?1:0);
      openSheet('Scorul nutrițional',`<div class="stack g16">
-      <div class="scbigscale">${['A','B','C','D'].map(g=>`<span class="scg sc-${g} ${g===sc.g?'cur':''}">${g}</span>`).join('')}</div>
-      <p class="small" style="margin:0">Scorul Crumbkin arată cât de bine hrănește o porție din rețeta asta, de la <b>A</b> (foarte bine, pentru zi de zi) la <b>D</b> (ocazional). E o regulă proprie, nu Nutri-Score-ul oficial de pe ambalaje.</p>
-      <div class="card scgrades"><div><span class="scg sc-A">A</span><span>5+ puncte · foarte bun pentru zi de zi</span></div><div><span class="scg sc-B">B</span><span>3–4 puncte · bun</span></div><div><span class="scg sc-C">C</span><span>1–2 puncte · merge din când în când</span></div><div><span class="scg sc-D">D</span><span>0 sau mai puțin · ocazional, de exemplu în ziua cu desert</span></div></div>
+      <div class="scbigscale">${scBars(sc.g,'big')}<b class="scbigword">${SCW[sc.g]}</b></div>
+      <p class="small" style="margin:0">Scorul Crumbkin arată cât de bine hrănește o porție din rețeta asta, de la <b>4 bare</b> (excelent, pentru zi de zi) la <b>1 bară</b> (rar). E o regulă proprie a aplicației, calculată din proteine, fibre, legume și grăsimi.</p>
+      <div class="card scgrades"><div>${scBars('A')}<span><b>Excelent</b> · 5+ puncte, pentru zi de zi</span></div><div>${scBars('B')}<span><b>Bun</b> · 3–4 puncte</span></div><div>${scBars('C')}<span><b>Din când în când</b> · 1–2 puncte</span></div><div>${scBars('D')}<span><b>Rar</b> · 0 sau mai puțin, de exemplu în ziua cu desert</span></div></div>
       <div class="stack g8"><span class="eyebrow">Cum a luat rețeta asta ${sc.pts} ${sc.pts===1?'punct':'puncte'}</span><div class="card scbreak">
        ${line('Proteine',`${f1(pd)} g / 100 kcal`,pP,3,'+3 de la 8 g, +2 de la 6 g, +1 de la 4 g')}
        ${line('Fibre',`${f1(fd)} g / 1000 kcal`,pF,2,'+2 de la 14 g, +1 de la 8 g')}
@@ -4373,7 +4387,7 @@ function goalChip(st){const all=st.pOk&&st.kOk;return`<span class="chip ${all?'m
 function scoreChip(r){return''}
 function macroGrade(v){const k=Math.max(1,v.k);let pts=0;const pd=(v.p||0)/k*100;pts+=pd>=8?3:pd>=6?2:pd>=4?1:0;if(v.fib!=null){const fd=v.fib/k*1000;pts+=fd>=14?2:fd>=8?1:0}else pts+=1;
   const fatP=(v.f||0)*9/k;pts-=fatP>.45?2:fatP>.35?1:0;if(v.c!=null&&v.p!=null){const cP=v.c*4/k;pts-=cP>.65?1:0}return pts>=4?'A':pts>=3?'B':pts>=1?'C':'D'}
-function macroGradeHtml(v,note){const g=macroGrade(v);const t={A:'foarte bun pentru parametrii tăi',B:'bun',C:'merge din când în când',D:'mai bine rar'}[g];return`<span class="row g8" style="align-items:center;margin-top:2px"><span class="sc sc-${g}">${g}</span><span class="xs muted">Scor Crumbkin: ${t}${note?` · ${note}`:''}</span></span>`}
+function macroGradeHtml(v,note){const g=macroGrade(v);const t={A:'foarte bun pentru parametrii tăi',B:'bun',C:'merge din când în când',D:'mai bine rar'}[g];return`<span class="row g8" style="align-items:center;margin-top:2px">${scBars(g)}<span class="xs muted">Scor Crumbkin: ${t}${note?` · ${note}`:''}</span></span>`}
 
 /* ===== Toată săptămâna: rezumat curat + câte un card compact pe zi ===== */
 function renderWeek(T){
@@ -4687,9 +4701,9 @@ function impCardHtml(){const p=IMPL.p;
   const tt=impRowsTotals();const okN=p.rows.filter(r=>r.id&&!r.skip).length,miss=p.rows.filter(r=>!r.id&&!r.skip).length;
   return`<section class="card pad stack g14 implp">
    <div class="field"><label class="eyebrow" for="implN">Numele rețetei</label><input id="implN" value="${esc(p.name)}" maxlength="90"></div>
-   <div class="stack g8"><label class="eyebrow" for="implC">Creatorul rețetei</label><div class="implcr"><span class="implat">@</span><input id="implC" value="${esc(p.me?'':p.cr)}" placeholder="ex. muraru.denisa" ${p.me?'disabled':''} maxlength="40"></div>
+   <div class="stack g8"><span class="eyebrow">Unde o pun</span>
     <button class="pchip" aria-pressed="${p.me}" data-act="implme" style="align-self:flex-start">${p.me?I_('check','tiny'):''}Am făcut-o eu</button>
-    <span class="xs muted">${p.me?'Intră la „Ale mele”.':'Intră la „De la creatori”, cu numele creatorului pe rețetă.'}</span></div>
+    <span class="xs muted">${p.me?'Intră la „Ale mele”.':'Intră la „Rețete virale”.'}</span></div>
    <div class="stack g8"><span class="eyebrow">Ce fel de masă e</span><div class="seg">${[['b','Mic dejun'],['m','Prânz sau cină'],['s','Gustare']].map(([k,n])=>`<button aria-pressed="${p.type===k}" data-act="impltype" data-v="${k}">${n}</button>`).join('')}</div>
     ${p.type==='s'?`<div class="seg">${[['sweet','Dulce'],['savory','Sărat']].map(([k,n])=>`<button aria-pressed="${p.flavor===k}" data-act="implfl" data-v="${k}">${n}</button>`).join('')}</div>`:''}</div>
    <div class="fields"><div class="field"><label class="eyebrow" for="implP">Porții în rețetă${p.porEst?' (estimat)':''}</label><input id="implP" type="number" inputmode="numeric" min="1" max="20" value="${p.por}"></div><div class="field"><label class="eyebrow" for="implTm">Minute</label><input id="implTm" type="number" inputmode="numeric" min="2" max="240" value="${p.t}"></div></div>
@@ -4728,11 +4742,10 @@ document.addEventListener('click',e=>{const b=e.target.closest('[data-act^="impl
     const items=Object.entries(m).map(([id,g])=>[id,roundG(id,g)]).filter(([,g])=>g>0);
     if(!items.length){IMPL.err='Rețeta are nevoie de cel puțin un ingredient cu cantitate.';keep();return}
     const name=(p.name||'').trim()||'Rețetă importată';const cr=(p.cr||'').replace(/^@/,'').trim();
-    if(!p.me&&!cr){IMPL.err='Scrie numele creatorului sau bifează „Am făcut-o eu”.';keep();return}
     const r={id:`u-${Date.now().toString(36)}`,type:p.type,n:name.slice(0,90),t:clamp(p.t||25,2,240),items,steps:p.steps.length?p.steps:['Urmează pașii din rețeta originală.'],src:p.me?'ai':'ig',imp:true};
-    if(!p.me)r.cr=cr;if(p.type==='s')r.flavor=p.flavor;
+    if(p.type==='s')r.flavor=p.flavor;
     S.custom.push(r);rebuildRecipes();try{_rk=null}catch(_){}save();
-    const tt=totalsOf(items);IMPL={txt:'',p:null,pick:null,q:'',msg:`Am adăugat „${r.n}” la „${p.me?'Ale mele':'De la creatori'}” (${f0(tt.k)} kcal, ${f0(tt.p)} g proteine pe porție).`,err:''};
+    const tt=totalsOf(items);IMPL={txt:'',p:null,pick:null,q:'',msg:`Am adăugat „${r.n}” la „${p.me?'Ale mele':'Rețete virale'}” (${f0(tt.k)} kcal, ${f0(tt.p)} g proteine pe porție).`,err:''};
     LIB.f=p.me?'mine':'ig';LIB.q='';render();toast(IMPL.msg);return}});
 
 /* rețetele importate își păstrează aparatura detectată din text */
@@ -5039,6 +5052,122 @@ function syRefreshCard(){const c=document.getElementById('syCard');if(c)c.outerH
 
 /* ===== Crumbkin: mascota (cookie mușcat cu mănuși și adidași) ===== */
 function bird(style){const B='<defs><mask id="MID"><rect width="300" height="245" fill="#fff"></rect><circle cx="220" cy="38" r="28" fill="#000"></circle><circle cx="236" cy="74" r="20" fill="#000"></circle><circle cx="192" cy="14" r="19" fill="#000"></circle></mask><mask id="MIDo"><rect width="300" height="245" fill="#fff"></rect><circle cx="220" cy="38" r="23" fill="#000"></circle><circle cx="236" cy="74" r="15" fill="#000"></circle><circle cx="192" cy="14" r="14" fill="#000"></circle></mask></defs><path d="M138 176 Q128 194 136.0 210" fill="none" stroke="#17151C" stroke-width="5" stroke-linecap="round"></path><path d="M162 176 Q172 194 164.0 210" fill="none" stroke="#17151C" stroke-width="5" stroke-linecap="round"></path><g transform="translate(96.0,206) scale(0.5)"><path d="M6 40 Q4 26 18 24 L42 20 Q50 8 62 6 L82 2 Q96 2 96 16 L96 42 Z" fill="#E5363D" stroke="#17151C" stroke-width="7" stroke-linejoin="round"></path><path d="M8 39 Q6 27 18 25 L26 24 Q24 32 26 39 Z" fill="#B8242B"></path><path d="M86 5 Q94 5 94 16 L94 40 L88 40 Z" fill="#B8242B"></path><path d="M42 36 Q62 24 86 22" fill="none" stroke="#B8242B" stroke-width="5" stroke-linecap="round"></path><path d="M46 19 l5 5 M54 14 l5 5 M62 10 l5 5" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round"></path><path d="M0 40 L100 40 Q102 50 94 52 L8 52 Q0 52 0 46 Z" fill="#FFFFFF" stroke="#17151C" stroke-width="7" stroke-linejoin="round"></path></g><g transform="translate(204.0,206) scale(-0.5,0.5)"><path d="M6 40 Q4 26 18 24 L42 20 Q50 8 62 6 L82 2 Q96 2 96 16 L96 42 Z" fill="#E5363D" stroke="#17151C" stroke-width="7" stroke-linejoin="round"></path><path d="M8 39 Q6 27 18 25 L26 24 Q24 32 26 39 Z" fill="#B8242B"></path><path d="M86 5 Q94 5 94 16 L94 40 L88 40 Z" fill="#B8242B"></path><path d="M42 36 Q62 24 86 22" fill="none" stroke="#B8242B" stroke-width="5" stroke-linecap="round"></path><path d="M46 19 l5 5 M54 14 l5 5 M62 10 l5 5" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round"></path><path d="M0 40 L100 40 Q102 50 94 52 L8 52 Q0 52 0 46 Z" fill="#FFFFFF" stroke="#17151C" stroke-width="7" stroke-linejoin="round"></path></g><g transform="rotate(-130 39.3 163.2)"><g transform="translate(22,138) scale(0.36)"><g stroke="#17151C" stroke-width="10" stroke-linejoin="round" fill="#17151C"><rect x="6" y="44" width="84" height="64" rx="30"></rect><rect x="6" y="6" width="25" height="64" rx="12.5" transform="rotate(-9 18 62)"></rect><rect x="34" y="-6" width="25" height="72" rx="12.5"></rect><rect x="62" y="4" width="25" height="64" rx="12.5" transform="rotate(9 74 62)"></rect><rect x="70" y="58" width="42" height="24" rx="12" transform="rotate(-30 78 70)"></rect><rect x="12" y="102" width="72" height="32" rx="16"></rect></g><g fill="#FFFFFF"><rect x="6" y="44" width="84" height="64" rx="30"></rect><rect x="6" y="6" width="25" height="64" rx="12.5" transform="rotate(-9 18 62)"></rect><rect x="34" y="-6" width="25" height="72" rx="12.5"></rect><rect x="62" y="4" width="25" height="64" rx="12.5" transform="rotate(9 74 62)"></rect><rect x="70" y="58" width="42" height="24" rx="12" transform="rotate(-30 78 70)"></rect><rect x="12" y="102" width="72" height="32" rx="16"></rect></g><path d="M32 46 v18 M60 46 v18 M16 104 h64" stroke="#17151C" stroke-width="5" stroke-linecap="round" fill="none"></path></g></g><g transform="translate(300,0) scale(-1,1)"><g transform="rotate(-130 39.3 163.2)"><g transform="translate(22,138) scale(0.36)"><g stroke="#17151C" stroke-width="10" stroke-linejoin="round" fill="#17151C"><rect x="6" y="44" width="84" height="64" rx="30"></rect><rect x="6" y="6" width="25" height="64" rx="12.5" transform="rotate(-9 18 62)"></rect><rect x="34" y="-6" width="25" height="72" rx="12.5"></rect><rect x="62" y="4" width="25" height="64" rx="12.5" transform="rotate(9 74 62)"></rect><rect x="70" y="58" width="42" height="24" rx="12" transform="rotate(-30 78 70)"></rect><rect x="12" y="102" width="72" height="32" rx="16"></rect></g><g fill="#FFFFFF"><rect x="6" y="44" width="84" height="64" rx="30"></rect><rect x="6" y="6" width="25" height="64" rx="12.5" transform="rotate(-9 18 62)"></rect><rect x="34" y="-6" width="25" height="72" rx="12.5"></rect><rect x="62" y="4" width="25" height="64" rx="12.5" transform="rotate(9 74 62)"></rect><rect x="70" y="58" width="42" height="24" rx="12" transform="rotate(-30 78 70)"></rect><rect x="12" y="102" width="72" height="32" rx="16"></rect></g><path d="M32 46 v18 M60 46 v18 M16 104 h64" stroke="#17151C" stroke-width="5" stroke-linecap="round" fill="none"></path></g></g></g><circle cx="150" cy="100" r="89" fill="#17151C" mask="url(#MIDo)"></circle><g mask="url(#MID)"><circle cx="150" cy="100" r="84" fill="#E3A866"></circle><circle cx="150" cy="100" r="78" fill="none" stroke="#D39450" stroke-width="4"></circle><ellipse cx="110" cy="66" rx="9" ry="7" fill="#5A3925" transform="rotate(-20 110 66)"></ellipse><ellipse cx="154" cy="46" rx="7" ry="6" fill="#5A3925"></ellipse><ellipse cx="198" cy="144" rx="9" ry="7" fill="#5A3925" transform="rotate(25 198 144)"></ellipse><ellipse cx="106" cy="146" rx="8" ry="6" fill="#5A3925"></ellipse><ellipse cx="210" cy="98" rx="6" ry="5" fill="#5A3925"></ellipse><ellipse cx="152" cy="170" rx="7" ry="5" fill="#5A3925"></ellipse></g><ellipse cx="130" cy="102" rx="9" ry="12" fill="#17151C"></ellipse><ellipse cx="172" cy="102" rx="9" ry="12" fill="#17151C"></ellipse><circle cx="133" cy="97" r="3.5" fill="#FFFFFF"></circle><circle cx="175" cy="97" r="3.5" fill="#FFFFFF"></circle><ellipse cx="114" cy="124" rx="10" ry="6" fill="#FFD1DC"></ellipse><ellipse cx="188" cy="124" rx="10" ry="6" fill="#FFD1DC"></ellipse><path d="M134 126 Q151 144 168 126" fill="none" stroke="#17151C" stroke-width="6" stroke-linecap="round"></path><path d="M247 50 l7 4 -3 7 -7 -3z" fill="#E3A866" stroke="#17151C" stroke-width="2"></path><path d="M259 70 l5 2 -2 5 -5 -2z" fill="#E3A866" stroke="#17151C" stroke-width="2"></path>';bird.n=(bird.n||0)+1;const id='ckm'+bird.n;return`<svg class="logo" viewBox="0 0 300 245" aria-hidden="true"${style?` style="${style}"`:''}>${B.split('MID').join(id)}</svg>`}
+/* ===== Crumbkin: texte legale, consimțământ, ștergerea datelor, limite de siguranță ===== */
+/* Datele de identificare se completează înainte de lansare. */
+const LEGAL_ID={owner:'[Numele tău complet sau al firmei]',email:'[adresa ta de email de contact]',updated:'17 octombrie 2026'};
+
+const LEGAL={
+ privacy:{t:'Politica de confidențialitate',h:()=>`
+<p class="small muted">Ultima actualizare: ${LEGAL_ID.updated}</p>
+<h3>Cine răspunde de datele tale</h3>
+<p>Crumbkin este o aplicație de planificare a meselor, administrată de ${LEGAL_ID.owner} („noi”). Pentru orice întrebare despre datele tale ne scrii la <b>${LEGAL_ID.email}</b>.</p>
+<h3>Ce date folosește aplicația</h3>
+<ul>
+<li><b>Profil:</b> sex, vârstă, înălțime, greutate, nivel de activitate, obiectiv, preferințe alimentare, alergii și intoleranțe, alimente evitate, buget, magazine, numărul de persoane.</li>
+<li><b>Date despre sănătate</b> (opționale): greutățile înregistrate, apa băută, suplimentele sau pastilele pe care le notezi, ce ai mâncat, informația că ești însărcinată sau alăptezi. Acestea sunt date sensibile în sensul art. 9 GDPR.</li>
+<li><b>Conținut adăugat de tine:</b> planuri, liste de cumpărături, rețete importate sau create, poze puse la rețete, alimente adăugate, prețuri corectate, gusturi (like / dislike).</li>
+</ul>
+<p>Nu cerem nume, email sau telefon pentru a folosi aplicația. Nu folosim cookie-uri de urmărire, publicitate sau analiză.</p>
+<h3>Unde stau datele</h3>
+<p>În versiunea actuală, datele tale stau <b>doar pe dispozitivul tău</b>, în memoria browserului. Nu le trimitem pe un server al nostru și nu le vindem sau dăm altcuiva. Pozele pe care le citești cu funcția „Importă rețeta din poze” sunt procesate local, în browser.</p>
+<p>Dacă în viitor îți vom oferi un cont cu sincronizare între dispozitive, datele contului vor fi găzduite în Uniunea Europeană, iar această politică va fi actualizată înainte.</p>
+<h3>Servicii externe folosite la încărcare</h3>
+<ul>
+<li><b>GitHub Pages</b> (GitHub Inc.) găzduiește aplicația; serverele lor primesc adresa IP a dispozitivului la fiecare încărcare, ca orice site.</li>
+<li><b>jsDelivr</b> livrează bibliotecile pentru citirea textului din poze și a codurilor de bare, doar când folosești aceste funcții; primește adresa IP.</li>
+</ul>
+<h3>Temeiul legal</h3>
+<p>Folosim datele de sănătate doar pe baza <b>consimțământului tău explicit</b> (art. 9 alin. 2 lit. a GDPR), pe care ni-l dai la început. Restul datelor le folosim ca să-ți oferim serviciul pe care l-ai cerut (art. 6 alin. 1 lit. b GDPR). Le folosim exclusiv pentru a calcula și afișa planul, lista de cumpărături și statisticile tale.</p>
+<h3>Cât timp le păstrăm</h3>
+<p>Datele rămân pe dispozitivul tău până le ștergi. Le poți șterge oricând din <b>Tu → Șterge-mi toate datele</b> sau ștergând datele site-ului din browser.</p>
+<h3>Drepturile tale</h3>
+<p>Ai dreptul la acces, rectificare, ștergere, restricționarea prelucrării, portabilitate (din Tu → Backup poți descărca toate datele într-un fișier) și dreptul de a-ți retrage oricând consimțământul, fără să afecteze ce s-a făcut înainte. Retragerea consimțământului înseamnă ștergerea datelor de sănătate din aplicație.</p>
+<p>Dacă ai o nemulțumire, ne poți scrie la adresa de mai sus sau te poți adresa Autorității Naționale de Supraveghere a Prelucrării Datelor cu Caracter Personal (ANSPDCP, www.dataprotection.ro).</p>
+<h3>Copii</h3>
+<p>Aplicația nu este destinată copiilor. Dacă ai sub 18 ani, folosește-o doar împreună cu un părinte și cu acordul medicului.</p>
+<h3>Modificări</h3>
+<p>Dacă schimbăm modul în care folosim datele, actualizăm această pagină și te anunțăm în aplicație înainte ca schimbarea să se aplice.</p>`},
+ medical:{t:'Disclaimer medical',h:()=>`
+<p class="small muted">Ultima actualizare: ${LEGAL_ID.updated}</p>
+<p><b>Crumbkin nu este un dispozitiv medical și nu oferă sfaturi, diagnostice sau tratamente medicale.</b> Este o aplicație de organizare a meselor și a cumpărăturilor, pentru un stil de viață sănătos.</p>
+<ul>
+<li>Caloriile și macronutrienții sunt <b>estimări</b> calculate cu formule generale (Mifflin–St Jeor) și valori nutriționale medii. Necesarul tău real poate fi diferit.</li>
+<li>Planurile nu țin locul unui medic sau al unui dietetician. Nu folosi aplicația pentru a trata, vindeca sau preveni vreo boală.</li>
+<li><b>Vorbește cu medicul înainte</b> să schimbi alimentația dacă: ești însărcinată sau alăptezi; ai sub 18 ani sau peste 65; ai diabet, boli de inimă, de rinichi sau de ficat, tensiune mare ori altă afecțiune cronică; iei medicamente; ai sau ai avut o tulburare de alimentație.</li>
+<li><b>Alergii:</b> aplicația evită alimentele pe care le marchezi, dar nu poate garanta lipsa urmelor de alergeni. Citește mereu eticheta produselor.</li>
+<li>Pastilele și suplimentele din tab-ul Sănătate sunt doar notițe și memento-uri. Nu sunt recomandări de dozare.</li>
+<li>Dacă simți amețeli, slăbiciune, palpitații sau alte simptome neobișnuite, oprește dieta și cere ajutor medical. În caz de urgență sună la <b>112</b>.</li>
+<li>Dacă observi că mâncarea, caloriile sau cântarul îți dau o stare de anxietate, vorbește cu un medic sau cu un psiholog. Ajutorul există și funcționează.</li>
+</ul>
+<p>Aplicația nu planifică deficit caloric sub un minim de siguranță (1.200 kcal pe zi pentru femei și 1.500 kcal pentru bărbați), la un IMC sub 18,5 sau în timpul sarcinii ori al alăptării.</p>`},
+ terms:{t:'Termeni și condiții',h:()=>`
+<p class="small muted">Ultima actualizare: ${LEGAL_ID.updated}</p>
+<h3>1. Despre aplicație</h3>
+<p>Crumbkin („aplicația”) este oferită de ${LEGAL_ID.owner}. Folosind aplicația, accepți acești termeni. Contact: <b>${LEGAL_ID.email}</b>.</p>
+<h3>2. Ce primești</h3>
+<p>Aplicația generează planuri de mese, liste de cumpărături și estimări de calorii, nutrienți și prețuri, pe baza informațiilor pe care le introduci. În acest moment aplicația este gratuită.</p>
+<h3>3. Informații orientative</h3>
+<p>Valorile nutriționale, prețurile și disponibilitatea produselor sunt <b>estimative</b> și pot diferi de realitate. Prețurile nu sunt oferte ale magazinelor, iar numele magazinelor sunt folosite doar pentru a-ți organiza lista. Citește și Disclaimerul medical, care face parte din acești termeni.</p>
+<h3>4. Folosirea corectă</h3>
+<p>Folosești aplicația pentru uz personal. Nu ai voie să o copiezi, să o revinzi sau să încerci să-i afectezi funcționarea. Rețetele și conținutul pe care le imporți trebuie să fie folosite cu respectarea drepturilor autorilor lor.</p>
+<h3>5. Conținutul aplicației</h3>
+<p>Numele Crumbkin, mascota, designul, textele și pozele rețetelor (generate cu inteligență artificială) aparțin aplicației. Rețetele sunt oferite pentru gătit acasă.</p>
+<h3>6. Răspundere</h3>
+<p>Aplicația este oferită „ca atare”. Facem tot ce putem ca informațiile să fie corecte, dar nu garantăm că sunt complete sau potrivite situației tale medicale. În măsura permisă de lege, nu răspundem pentru pagube rezultate din folosirea informațiilor din aplicație. Răspunderea pentru decizii privind sănătatea îți aparține; pentru ele consultă un medic.</p>
+<h3>7. Datele tale</h3>
+<p>Modul în care folosim datele este descris în Politica de confidențialitate.</p>
+<h3>8. Modificări</h3>
+<p>Putem actualiza acești termeni. Versiunea nouă apare în aplicație, cu data actualizării.</p>
+<h3>9. Legea aplicabilă</h3>
+<p>Se aplică legea română. Ca și consumator, ai și drepturile oferite de legislația de protecție a consumatorului din țara ta de reședință.</p>`}
+};
+
+function legalSheet(k){const L=LEGAL[k];if(!L)return;openSheet(L.t,`<div class="legal">${L.h()}</div>`)}
+function legalLinksHtml(cls){return`<div class="legallinks ${cls||''}"><button class="link" data-act="legal" data-v="privacy">Confidențialitate</button><span aria-hidden="true">·</span><button class="link" data-act="legal" data-v="medical">Disclaimer medical</button><span aria-hidden="true">·</span><button class="link" data-act="legal" data-v="terms">Termeni</button></div>`}
+
+/* --- consimțământ explicit pentru datele de sănătate --- */
+let CONSENT_NEXT=null;
+function consentSheet(next){CONSENT_NEXT=next||null;
+  openSheet('Înainte să începem',`<div class="stack g14">
+   <div class="row" style="justify-content:center">${bird('width:120px;height:100px')}</div>
+   <p class="small" style="margin:0">Ca să-ți facă planul, Crumbkin folosește date despre corpul și sănătatea ta (greutate, vârstă, alergii, ce mănânci). Ele rămân <b>doar pe dispozitivul tău</b> și le poți șterge oricând.</p>
+   <p class="small" style="margin:0">Crumbkin <b>nu e un dispozitiv medical</b>: cifrele sunt estimări, nu sfaturi medicale. Dacă ești însărcinată, ai o boală cronică, iei medicamente sau ai avut o tulburare de alimentație, vorbește întâi cu medicul.</p>
+   <label class="consentrow"><input type="checkbox" id="cnsOk"><span>Sunt de acord ca datele mele de sănătate să fie folosite pentru planul meu, conform <button class="link" data-act="legal" data-v="privacy">Politicii de confidențialitate</button>, și am citit <button class="link" data-act="legal" data-v="medical">Disclaimerul medical</button> și <button class="link" data-act="legal" data-v="terms">Termenii</button>.</span></label>
+   <button class="cta" data-act="cnsgo" disabled>Continuă</button>
+   ${S.onboarded?'<button class="btn ghost" data-act="cnsno">Nu sunt de acord</button>':''}
+  </div>`);
+  const cb=document.getElementById('cnsOk');const go=document.querySelector('[data-act="cnsgo"]');if(cb&&go)cb.onchange=()=>{go.disabled=!cb.checked}}
+
+/* --- ștergerea completă a datelor --- */
+function wipeSheet(){openSheet('Șterge-mi toate datele',`<div class="stack g14">
+  <p class="small" style="margin:0">Se șterg definitiv, de pe acest dispozitiv${typeof SY!=='undefined'&&SY.db?' și din contul tău':''}: profilul, planurile, listele, rețetele tale, pozele, alimentele adăugate, prețurile, jurnalul și toate datele de sănătate.</p>
+  <p class="small" style="margin:0"><b>Nu se poate anula.</b> Dacă vrei să le păstrezi, descarcă întâi un backup din Tu → Setări.</p>
+  <button class="cta danger" data-act="wipego">Șterge definitiv</button>
+  <button class="btn ghost" data-act="close">Renunță</button></div>`)}
+async function wipeAll(){
+  try{if(typeof SY!=='undefined'&&SY.db&&SY.uid){const col=SY.db.collection('data/users/'+SY.uid);const ids=['meta'];for(let i=0;i<12;i++)ids.push('s'+i);for(const rid of Object.keys(SY.photos||{}))ids.push(syPhId(rid));for(const id of ids){try{await col.doc(id).delete()}catch(e){}}}}catch(e){}
+  try{const ks=[];for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i);if(k&&k.startsWith('pitigoi'))ks.push(k)}ks.forEach(k=>localStorage.removeItem(k))}catch(e){}
+  location.reload()}
+
+/* --- siguranță: sarcină / alăptare, minim de calorii --- */
+{const _ct=calcTargets;calcTargets=function(pr){if(pr&&pr.preg&&pr.sex==='f'){const c=_ct(Object.assign({},pr,{goal:'keep'}));c.note='Sarcină sau alăptare: planul nu face deficit caloric. Necesarul exact ți-l spune medicul sau un dietetician.';return c}return _ct(pr)}}
+{const _t=targets;targets=function(pr){const T=_t(pr);const floor=pr&&pr.sex==='m'?1500:1200;if(T&&T.kcal<floor){T.kcal=floor;T.floorHit=true}return T}}
+function pregHtml(d){if(d.sex!=='f')return'';return`<div class="card"><div class="switchrow">${I_('heartp')}<span class="lbl">Sunt însărcinată sau alăptez</span><button class="switch" role="switch" aria-checked="${!!d.preg}" data-act="q-preg" aria-label="Sunt însărcinată sau alăptez"></button></div>${d.preg?'<p class="note" style="padding:0 16px 14px">'+I_('info')+'<span>Planul nu va face deficit caloric. Vorbește cu medicul despre necesarul tău.</span></p>':''}</div>`}
+
+document.addEventListener('click',e=>{
+  const b=e.target.closest('[data-act="legal"],[data-act="cnsgo"],[data-act="cnsno"],[data-act="wipe"],[data-act="wipego"],[data-act="q-preg"],[data-act="w-start"]');if(!b)return;const a=b.dataset.act;
+  if(a==='w-start'&&!S.consent){e.preventDefault();e.stopImmediatePropagation();consentSheet(()=>{startQuiz(false,0)});return}
+  if(a==='legal'){e.preventDefault();e.stopImmediatePropagation();const back=document.querySelector('#layer .sheet h3');const prev=back?back.textContent:'';legalSheet(b.dataset.v);
+    if(prev==='Înainte să începem'){const sb=document.querySelector('#layer .sb');if(sb)sb.insertAdjacentHTML('afterbegin','<button class="btn sm ghost" data-act="cnsback" style="align-self:flex-start">Înapoi</button>')}return}
+  if(a==='cnsgo'){const cb=document.getElementById('cnsOk');if(!cb||!cb.checked)return;S.consent={v:1,at:new Date().toISOString()};save();closeLayer();const n=CONSENT_NEXT;CONSENT_NEXT=null;if(n)n();else render();return}
+  if(a==='cnsno'){closeLayer();wipeSheet();return}
+  if(a==='wipe'){wipeSheet();return}
+  if(a==='wipego'){b.disabled=true;b.textContent='Se șterg…';wipeAll();return}
+  if(a==='q-preg'){const d=(VIEW==='quiz'&&typeof Q!=='undefined'&&Q&&Q.d)?Q.d:S.profile;d.preg=!d.preg;if(d===S.profile)save();const y=window.scrollY;render();window.scrollTo(0,y);return}
+},true);
+document.addEventListener('click',e=>{if(e.target.closest('[data-act="cnsback"]')){consentSheet(CONSENT_NEXT)}});
+/* utilizatorii existenți: cerem consimțământul o singură dată */
+setTimeout(()=>{try{if(S.onboarded&&!S.consent&&VIEW==='app'&&!document.querySelector('#layer .sheet'))consentSheet(null)}catch(e){}},600);
 
 </script>
 <script type="text/plain" id="ocrWorkerSrc">/*! For license information please see worker.min.js.LICENSE.txt */
