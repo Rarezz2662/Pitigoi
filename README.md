@@ -1,3 +1,3 @@
-# Pițigoi
+# Crumbkin
 
-Planificator de mese personal.
+Planificator de mese — Crumbkin.

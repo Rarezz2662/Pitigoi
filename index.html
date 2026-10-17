@@ -3,12 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#f3f5f0" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#111714" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#f6f5f8" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#121016" media="(prefers-color-scheme: dark)">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
-<meta name="apple-mobile-web-app-title" content="Pițigoi">
+<meta name="apple-mobile-web-app-title" content="Crumbkin">
 <meta name="format-detection" content="telephone=no">
 <link rel="apple-touch-icon" href="icon-180.png">
 <link rel="icon" type="image/png" href="icon-192.png">
@@ -16,31 +16,31 @@
 <style>*,*::before,*::after{box-sizing:border-box}html,body{margin:0;padding:0}</style>
 </head>
 <body>
-<title>Pițigoi</title>
+<title>Crumbkin</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap">
 <style>
-/* Layout: o coloană de telefon (max 560px), ecrane pline pentru chestionar și rețetă, bară de taburi jos. Paleta: verde de pădure cu mentă și chihlimbar; prima temă e cea întunecată, a doua cea deschisă. */
+/* Layout: o coloană de telefon (max 560px), ecrane pline pentru chestionar și rețetă, bară de taburi jos. Paleta Crumbkin: mov, neutre, galben la cumpărături; prima temă e cea întunecată, a doua cea deschisă. */
 :root{
-  --bg:#f3f5f0; --surface:#ffffff; --surface2:#e9eee7; --line:#d6dfd4; --ink:#16211b; --muted:#5d6b62;
-  --mint:#1f8a55; --mint-ink:#ffffff; --mint-soft:#dbefe2; --mint-line:#8fcca8;
-  --amber:#e3a33d; --amber-ink:#2b1c04; --amber-soft:#f7e8cc;
-  --red:#c5423c; --red-soft:#f8e0dd; --scrim:rgba(14,22,18,.45);
-  --shadow:0 1px 2px rgba(20,30,25,.05),0 10px 28px rgba(20,30,25,.07);
+  --bg:#f6f5f8; --surface:#ffffff; --surface2:#eeecf2; --line:#e2dfe9; --ink:#17151c; --muted:#625e70;
+  --mint:#6a4bea; --mint-ink:#ffffff; --mint-soft:#efeafe; --mint-line:#b9a8f7;
+  --amber:#ffc83d; --amber-ink:#17151c; --amber-soft:#fff4d6;
+  --red:#c5423c; --red-soft:#f8e0dd; --scrim:rgba(18,14,30,.45);
+  --shadow:0 1px 2px rgba(23,21,28,.05),0 10px 28px rgba(23,21,28,.07);
   --f-d:"Nunito","Trebuchet MS",system-ui,sans-serif;
   --f-b:"Figtree","Segoe UI",system-ui,sans-serif;
   --f-m:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;
   --r:16px;
 }
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
-  --bg:#111714; --surface:#1a221d; --surface2:#232d27; --line:#2c3831; --ink:#e8efe9; --muted:#91a298;
-  --mint:#74d39c; --mint-ink:#0e1a13; --mint-soft:rgba(116,211,156,.13); --mint-line:rgba(116,211,156,.55);
-  --amber:#e3a53f; --amber-ink:#2b1c04; --amber-soft:rgba(227,165,63,.15);
+  --bg:#121016; --surface:#1c1a22; --surface2:#26232e; --line:#322e3b; --ink:#eeecf3; --muted:#a29db0;
+  --mint:#a08bff; --mint-ink:#120e24; --mint-soft:rgba(160,139,255,.15); --mint-line:rgba(160,139,255,.5);
+  --amber:#ffc83d; --amber-ink:#17151c; --amber-soft:rgba(255,200,61,.15);
   --red:#f07a72; --red-soft:rgba(240,122,114,.14); --scrim:rgba(0,0,0,.6); --shadow:none; color-scheme:dark}}
 :root[data-theme="dark"]{
-  --bg:#111714; --surface:#1a221d; --surface2:#232d27; --line:#2c3831; --ink:#e8efe9; --muted:#91a298;
-  --mint:#74d39c; --mint-ink:#0e1a13; --mint-soft:rgba(116,211,156,.13); --mint-line:rgba(116,211,156,.55);
-  --amber:#e3a53f; --amber-ink:#2b1c04; --amber-soft:rgba(227,165,63,.15);
+  --bg:#121016; --surface:#1c1a22; --surface2:#26232e; --line:#322e3b; --ink:#eeecf3; --muted:#a29db0;
+  --mint:#a08bff; --mint-ink:#120e24; --mint-soft:rgba(160,139,255,.15); --mint-line:rgba(160,139,255,.5);
+  --amber:#ffc83d; --amber-ink:#17151c; --amber-soft:rgba(255,200,61,.15);
   --red:#f07a72; --red-soft:rgba(240,122,114,.14); --scrim:rgba(0,0,0,.6); --shadow:none; color-scheme:dark}
 
 *{box-sizing:border-box}
@@ -70,7 +70,8 @@ svg{display:block}
 .g4{gap:4px}.g8{gap:8px}.g12{gap:12px}.g16{gap:16px}.g20{gap:20px}.g24{gap:24px}
 
 /* Buttons */
-.cta{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;border-radius:999px;padding:15px 20px;background:var(--amber);color:var(--amber-ink);font-weight:700;font-size:1rem}
+.cta{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;border-radius:999px;padding:15px 20px;background:var(--mint);color:var(--mint-ink);font-weight:700;font-size:1rem}
+.foodtop .cta{background:var(--amber);color:var(--amber-ink)}
 .cta:disabled{opacity:.4;cursor:not-allowed}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;border-radius:999px;padding:10px 16px;font-weight:700;font-size:.9rem;background:var(--surface2);color:var(--ink)}
 .btn.mint{background:var(--mint);color:var(--mint-ink)}
@@ -199,10 +200,10 @@ input[type=range]{width:100%;accent-color:var(--mint);height:28px}
 .vcard svg{position:absolute;inset:0;width:100%;height:100%}
 .vcard .vl{position:absolute;left:16px;bottom:16px;background:rgba(20,26,22,.72);color:#fff;border:1px solid rgba(255,255,255,.18);border-radius:999px;padding:8px 16px;font-family:var(--f-d);font-weight:900;font-size:1.25rem}
 .vcard .stamp{position:absolute;top:16px;right:16px;border-radius:8px;padding:4px 10px;font-weight:800;font-size:.75rem;letter-spacing:.06em;opacity:0;transition:opacity .15s}
-.vcard .stamp.y{background:#1f8a55;color:#fff}
+.vcard .stamp.y{background:var(--mint);color:var(--mint-ink)}
 .vcard .stamp.n{background:#c5423c;color:#fff;left:16px;right:auto}
 .vcard.back{transform:scale(.94) translateY(14px) rotate(-3deg);filter:brightness(.7)}
-.vcard[data-dir="yes"]{border-color:#74d39c}
+.vcard[data-dir="yes"]{border-color:var(--mint)}
 .vcard[data-dir="no"]{border-color:#f07a72}
 .vcard[data-dir="yes"] .stamp.y,.vcard[data-dir="no"] .stamp.n{opacity:1}
 .vbtns{display:flex;justify-content:center;gap:22px;align-items:center}
@@ -258,7 +259,8 @@ input[type=range]{width:100%;accent-color:var(--mint);height:28px}
 /* App */
 .apphead{display:flex;align-items:center;gap:10px;padding-block:14px 6px}
 .apphead .t{flex:1;min-width:0}
-.logo{width:36px;height:36px;flex:none}
+.logo{width:40px;height:40px;flex:none}
+.wordmark .kin{color:var(--mint)}
 .wordmark{font-family:var(--f-d);font-weight:900;font-size:1.4rem}
 .main{display:flex;flex-direction:column;gap:18px;padding-block:6px 110px}
 .banner{display:flex;gap:12px;align-items:center;background:var(--amber-soft);border-radius:var(--r);padding:12px 14px;font-size:.9rem}
@@ -3104,7 +3106,7 @@ function renderBuild(){
   const d=Q.d;const n=d.days.filter(Boolean).length*mealsPerDay(d);
   return`<div class="wrap"><div class="qbody" style="padding-top:40px;align-items:stretch">
   <div id="bPh1" class="stack g16" style="align-items:center;text-align:center;min-height:60vh;justify-content:center">${bird('width:64px;height:64px')}<div class="bigcount" id="bCount">${n}</div><p class="small" style="font-weight:700">De ${n} de ori pe săptămână decizi ce mănânci.</p><h3 id="bLine" style="color:var(--mint);opacity:0;transition:opacity .4s">Acum e o singură decizie, și ai luat-o deja.</h3></div>
-  <div id="bPh2" hidden class="stack g16"><div class="row" style="justify-content:center">${bird()}<span class="wordmark">Pițigoi</span></div><h2 style="text-align:center">Pregătim săptămâna</h2><p class="sub" style="text-align:center;margin-top:-8px">Punem laolaltă obiectivul, alegerile de mâncare și bugetul.</p>
+  <div id="bPh2" hidden class="stack g16"><div class="row" style="justify-content:center">${bird()}<span class="wordmark">Crumb<span class="kin">kin</span></span></div><h2 style="text-align:center">Pregătim săptămâna</h2><p class="sub" style="text-align:center;margin-top:-8px">Punem laolaltă obiectivul, alegerile de mâncare și bugetul.</p>
   <div class="card checklist">${answerRows(d).filter(r=>['Obiectiv','Proteine','Calorii','Mese','Nevoi alimentare','Nu conține niciodată','Bucătărie','Buget'].includes(r[2])).map(([,,k,v])=>`<div class="rowi">${I_('check','ok')}<span class="small muted">${k}</span><b>${esc(v)}</b></div>`).join('')}</div></div></div></div>`;
 }
 function runBuild(){
@@ -3124,7 +3126,7 @@ function runBuild(){
 function renderWelcome(){
   const ex=exampleWeek();const T=targets(ex.pr);const day=ex.plan.days[0];
   return`<div class="wrap welcome rise">
-  <div class="row" style="justify-content:center">${bird()}<span class="wordmark">Pițigoi</span></div>
+  <div class="row" style="justify-content:center">${bird()}<span class="wordmark">Crumb<span class="kin">kin</span></span></div>
   <div class="card preview">${dayCard(ex.plan,0,T,{mini:true})}</div>
   <h1 class="wtitle">Mesele săptămânii, deja hotărâte</h1>
   <p class="muted" style="text-align:center">Proteinele și caloriile ies în fiecare zi, verificate prin calcul, la magazinul tău și în bugetul tău.</p>
@@ -3135,7 +3137,7 @@ function renderWelcome(){
 const TABS=[['health','pulse','Sănătate'],['plan','week','Plan'],['shop','cart','Cumpărături'],['lib','book','Rețete'],['me','user','Tu']];
 function renderApp(){
   const T=targets(S.profile);
-  let h=`<div class="wrap"><header class="apphead">${bird()}<div class="t"><div class="wordmark">Pițigoi</div></div><button class="iconbtn" data-act="theme-cycle" aria-label="Temă: ${{auto:'automată',light:'deschisă',dark:'întunecată'}[THEME]}. Atinge ca să schimbi.">${I_(THEME==='dark'?'moon':THEME==='light'?'sun':'auto')}</button></header><main class="main">`;
+  let h=`<div class="wrap"><header class="apphead">${bird()}<div class="t"><div class="wordmark">Crumb<span class="kin">kin</span></div></div><button class="iconbtn" data-act="theme-cycle" aria-label="Temă: ${{auto:'automată',light:'deschisă',dark:'întunecată'}[THEME]}. Atinge ca să schimbi.">${I_(THEME==='dark'?'moon':THEME==='light'?'sun':'auto')}</button></header><main class="main">`;
   const end=addDays(S.plan.start,7);
   if(todayIso()>=end) h+=`<div class="banner">${I_('cal')}<div class="t"><b>Săptămâna s-a încheiat</b>Construiește-o pe următoarea, cu rețete pe care nu le-ai avut recent.</div><button class="btn mint sm" data-act="next-week">Construiește</button></div>`;
   else if(todayIso()<S.plan.start&&TAB!=='plan'&&TAB!=='shop') h+=`<div class="banner">${I_('cal')}<div class="t"><b>Planul începe ${fmtDate(S.plan.start)}</b>Până atunci, fă cumpărăturile din listă.</div></div>`;
@@ -3144,7 +3146,7 @@ function renderApp(){
   if(TAB==='lib') h+=renderLib();
   if(TAB==='me') h+=renderMe(T);
   if(TAB==='health') h+=renderHealth(T);
-  h+=`<p class="foot">Pițigoi nu este un dispozitiv medical și nu oferă sfaturi medicale. Vorbește cu un medic sau cu un nutriționist înainte să-ți schimbi alimentația, mai ales dacă ai o afecțiune. Valorile nutriționale sunt calculate din tabele la 100 g, după USDA FoodData Central. Prețurile cu ~ sunt estimări.</p></main></div>`;
+  h+=`<p class="foot">Crumbkin nu este un dispozitiv medical și nu oferă sfaturi medicale. Vorbește cu un medic sau cu un nutriționist înainte să-ți schimbi alimentația, mai ales dacă ai o afecțiune. Valorile nutriționale sunt calculate din tabele la 100 g, după USDA FoodData Central. Prețurile cu ~ sunt estimări.</p></main></div>`;
   h+=`<nav class="tabs" aria-label="Secțiuni"><div class="in" role="tablist">${TABS.map(([k,ic,n])=>`<button role="tab" aria-selected="${TAB===k}" data-act="tab" data-v="${k}">${I_(ic)}<span>${n}</span></button>`).join('')}</div></nav>`;
   return h;
 }
@@ -3630,7 +3632,7 @@ document.addEventListener('click',e=>{
    <p><b>3. Porțiile.</b> Rețetele se aleg după dietă, alergii, aparatură și gusturi; apoi porția fiecărei mese se mărește sau se micșorează până când ziua intră în interval: ±6% la calorii și cel puțin minimul de proteine.</p>
    <p><b>4. Fiecare zi separat.</b> O zi care iese din interval e marcată cu roșu; nu o ascundem într-o medie pe săptămână.</p>
    <p><b>5. Cumpărăturile.</b> Lista adună gramele din toată săptămâna, le înmulțește cu porțiile casei și le transformă în pachete întregi. Ce rămâne se scade din lista următoare.</p>
-   <p class="small muted">Pițigoi nu e un dispozitiv medical. Prețurile sunt estimări până le corectezi.</p>`);break}
+   <p class="small muted">Crumbkin nu e un dispozitiv medical. Prețurile sunt estimări până le corectezi.</p>`);break}
    case 'theme-cycle':setTheme({auto:'light',light:'dark',dark:'auto'}[THEME]);break;
    case 'meal':{if(TAB==='plan'&&PV==='week'){DAY=i}const dd=S.plan.days[i];openRecipe({id:dd.r[s],items:dd.m[s],d:i,s,plan:S.plan});break}
    case 'recipe':openRecipe({id:v});break;
@@ -3666,7 +3668,7 @@ document.addEventListener('click',e=>{
    case 'next-week':{showNext(false);const end=addDays(S.plan.start,7);startWeekQuiz(end>todayIso()?end:todayIso());if(Q&&end>todayIso())Q.nextMode=true;break}
    case 'uncheck':S.checked={};save();render();break;
    case 'whytwo':openSheet('De ce două costuri?',`<p><b>Mâncarea din săptămâna asta</b> e cât costă exact cantitățile pe care le mănânci: 300 g dintr-un pachet de 1 kg contează ca 30% din preț.</p><p><b>Totalul la casă</b> e cât plătești, pentru că magazinul vinde pachete întregi. Diferența rămâne în cămară sau în congelator și e scăzută automat din lista de săptămâna viitoare. Prima săptămână e cea mai scumpă, pentru că umpli cămara (ulei, orez, condimente); următoarele sunt mai ieftine.</p><p>Ce ai deja acasă (proteina whey, uleiul, mierea…) marchezi cu <b>Am acasă</b> și nu mai intră în totalul de plată. Legumele, fructele și carnea de la Kaufland se socotesc la kg, cât îți trebuie, nu la pachet.</p><p class="small muted">Bugetul se compară cu mâncarea din săptămână, pentru că restul nu e pierdut. Prețurile cu ~ sunt estimări; atinge un preț ca să pui prețul de pe raft.</p>`);break;
-   case 'copylist':{const {rows}=shopList();const st=primaryStore();let txt=`Lista Pițigoi · ${STORE_LIST[st].n} · ${shortDate(S.plan.start)}–${shortDate(addDays(S.plan.start,6))}\n`;{const xs=S.plan.shopX||[];if(xs.length)txt+=`\nAdăugate de tine\n`+xs.map(x=>`${x.done?'[x]':'[ ]'} ${x.n}${xQty(x)?': '+xQty(x):''}`).join('\n')+'\n'}for(const cat of storeOrder(st)){const rs=rows.filter(r=>ING[r.id].cat===cat&&(r.packs||r.kg));if(!rs.length)continue;txt+=`\n${CATS[cat]}\n`+rs.map(r=>`${S.checked[r.id]?'[x]':'[ ]'} ${ING[r.id].n}: ${buyLabel(r)}`).join('\n')+'\n'}
+   case 'copylist':{const {rows}=shopList();const st=primaryStore();let txt=`Lista Crumbkin · ${STORE_LIST[st].n} · ${shortDate(S.plan.start)}–${shortDate(addDays(S.plan.start,6))}\n`;{const xs=S.plan.shopX||[];if(xs.length)txt+=`\nAdăugate de tine\n`+xs.map(x=>`${x.done?'[x]':'[ ]'} ${x.n}${xQty(x)?': '+xQty(x):''}`).join('\n')+'\n'}for(const cat of storeOrder(st)){const rs=rows.filter(r=>ING[r.id].cat===cat&&(r.packs||r.kg));if(!rs.length)continue;txt+=`\n${CATS[cat]}\n`+rs.map(r=>`${S.checked[r.id]?'[x]':'[ ]'} ${ING[r.id].n}: ${buyLabel(r)}`).join('\n')+'\n'}
      const ok=()=>toast('Lista a fost copiată. O poți lipi în WhatsApp sau Notițe.');
      try{navigator.clipboard.writeText(txt).then(ok,()=>openSheet('Copiază lista',`<textarea class="field" style="width:100%;min-height:50vh" readonly id="copyTa">${esc(txt)}</textarea><p class="xs muted">Selectează textul și copiază-l.</p>`))}catch(e){openSheet('Copiază lista',`<textarea style="width:100%;min-height:50vh" readonly>${esc(txt)}</textarea>`)}break}
    case 'shopstore':S.shopStore=v;save();render();break;
@@ -3717,7 +3719,7 @@ function thumbSVG(r){const u=photoFor(r);return u?`<img class="art" alt="" data-
 function heroSVG(r){const u=photoFor(r);return u?`<img class="art" alt="" data-ok="1" src="${u}">`:artTag('h:'+r.id)}
 
 const todayI=()=>todayIso();
-function scoreChip(r){if(!r||r.type==='z')return'';const s=scoreAD(r);return`<span class="sc sc-${s.g}" title="Scor Pițigoi ${s.g}">${s.g}</span>`}
+function scoreChip(r){if(!r||r.type==='z')return'';const s=scoreAD(r);return`<span class="sc sc-${s.g}" title="Scor Crumbkin ${s.g}">${s.g}</span>`}
 function ingName(id){if(id==='whey'){const fl=S.profile.week&&S.profile.week.flavor;return`Proteină whey${fl&&WHEY_FL[fl]?` (${WHEY_FL[fl]})`:''}`}return ING[id].n}
 const credit=c=>c?`<span class="credit">Idee de la <b>@${esc(c)}</b></span>`:'';
 function recipeExtras(r,ctx){
@@ -4018,7 +4020,7 @@ Răspunde doar cu JSON: {"name":"Nume în română","type":"b|m|s","minutes":25,
 }
 function exportBackup(){const data=JSON.stringify({app:'pitigoi',v:10,at:new Date().toISOString(),S:JSON.parse(JSON.stringify(S,(k,v)=>['tagset','eqg','vib','tt','_sc','_aff'].includes(k)?undefined:v))});
   const fallback=()=>openSheet('Backup',`<p class="small">Copiază textul de mai jos într-o notiță.</p><textarea style="width:100%;min-height:50vh" readonly>${esc(data)}</textarea>`);
-  const fn=`pitigoi-backup-${todayI()}.json`;
+  const fn=`crumbkin-backup-${todayI()}.json`;
   (async()=>{let dl=null;try{dl=window.claude&&window.claude.use?await window.claude.use('downloads'):null}catch(e){}
     if(dl){try{await dl.save({filename:fn,data});toast('Backup-ul a fost salvat.')}catch(e){if(e&&e.code==='declined')return;if(e&&e.code==='rate_limited'){toast('Ai deja o fereastră de salvare deschisă.');return}fallback()}return}
     try{const b=new Blob([data],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=fn;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},1500);toast('Backup-ul a fost salvat în Descărcări / Fișiere.')}catch(e){fallback()}})()}
@@ -4037,7 +4039,7 @@ document.addEventListener('click',e=>{
      const pP=pd>=8?3:pd>=6?2:pd>=4?1:0,pF=fd>=14?2:fd>=8?1:0,pV=t.veg>=200?2:t.veg>=100?1:0,pG=-(fatP>.45?2:fatP>.35?1:0),pPr=-(proc>40?2:proc>0?1:0),pS=-(sug>25?2:sug>10?1:0);
      openSheet('Scorul nutrițional',`<div class="stack g16">
       <div class="scbigscale">${['A','B','C','D'].map(g=>`<span class="scg sc-${g} ${g===sc.g?'cur':''}">${g}</span>`).join('')}</div>
-      <p class="small" style="margin:0">Scorul Pițigoi arată cât de bine hrănește o porție din rețeta asta, de la <b>A</b> (foarte bine, pentru zi de zi) la <b>D</b> (ocazional). E o regulă proprie, nu Nutri-Score-ul oficial de pe ambalaje.</p>
+      <p class="small" style="margin:0">Scorul Crumbkin arată cât de bine hrănește o porție din rețeta asta, de la <b>A</b> (foarte bine, pentru zi de zi) la <b>D</b> (ocazional). E o regulă proprie, nu Nutri-Score-ul oficial de pe ambalaje.</p>
       <div class="card scgrades"><div><span class="scg sc-A">A</span><span>5+ puncte · foarte bun pentru zi de zi</span></div><div><span class="scg sc-B">B</span><span>3–4 puncte · bun</span></div><div><span class="scg sc-C">C</span><span>1–2 puncte · merge din când în când</span></div><div><span class="scg sc-D">D</span><span>0 sau mai puțin · ocazional, de exemplu în ziua cu desert</span></div></div>
       <div class="stack g8"><span class="eyebrow">Cum a luat rețeta asta ${sc.pts} ${sc.pts===1?'punct':'puncte'}</span><div class="card scbreak">
        ${line('Proteine',`${f1(pd)} g / 100 kcal`,pP,3,'+3 de la 8 g, +2 de la 6 g, +1 de la 4 g')}
@@ -4370,7 +4372,7 @@ function goalChip(st){const all=st.pOk&&st.kOk;return`<span class="chip ${all?'m
 function scoreChip(r){return''}
 function macroGrade(v){const k=Math.max(1,v.k);let pts=0;const pd=(v.p||0)/k*100;pts+=pd>=8?3:pd>=6?2:pd>=4?1:0;if(v.fib!=null){const fd=v.fib/k*1000;pts+=fd>=14?2:fd>=8?1:0}else pts+=1;
   const fatP=(v.f||0)*9/k;pts-=fatP>.45?2:fatP>.35?1:0;if(v.c!=null&&v.p!=null){const cP=v.c*4/k;pts-=cP>.65?1:0}return pts>=4?'A':pts>=3?'B':pts>=1?'C':'D'}
-function macroGradeHtml(v,note){const g=macroGrade(v);const t={A:'foarte bun pentru parametrii tăi',B:'bun',C:'merge din când în când',D:'mai bine rar'}[g];return`<span class="row g8" style="align-items:center;margin-top:2px"><span class="sc sc-${g}">${g}</span><span class="xs muted">Scor Pițigoi: ${t}${note?` · ${note}`:''}</span></span>`}
+function macroGradeHtml(v,note){const g=macroGrade(v);const t={A:'foarte bun pentru parametrii tăi',B:'bun',C:'merge din când în când',D:'mai bine rar'}[g];return`<span class="row g8" style="align-items:center;margin-top:2px"><span class="sc sc-${g}">${g}</span><span class="xs muted">Scor Crumbkin: ${t}${note?` · ${note}`:''}</span></span>`}
 
 /* ===== Toată săptămâna: rezumat curat + câte un card compact pe zi ===== */
 function renderWeek(T){
@@ -5033,6 +5035,9 @@ function syRefreshCard(){const c=document.getElementById('syCard');if(c)c.outerH
   for(const rid of Object.keys(S.photos||{}))if(S._syncAt)SY.photos[rid]=S.photos[rid].length;
   db.collection('data/users/'+uid).onSnapshot(syOnSnap,err=>{SY.st='err';syRefreshCard()});
  }catch(e){SY.st='off';syRefreshCard()}})();
+
+/* ===== Crumbkin: mascota (cookie mușcat cu mănuși și adidași) ===== */
+function bird(style){const B='<defs><mask id="MID"><rect width="270" height="245" fill="#fff"></rect><circle cx="205" cy="38" r="28" fill="#000"></circle><circle cx="221" cy="74" r="20" fill="#000"></circle><circle cx="177" cy="14" r="19" fill="#000"></circle></mask></defs><g><g stroke="#17151C" stroke-width="8" stroke-linejoin="round" fill="#17151C"><ellipse cx="28" cy="130" rx="16" ry="14"></ellipse><circle cx="18" cy="116" r="7"></circle><circle cx="28" cy="112" r="7"></circle><circle cx="38" cy="116" r="7"></circle><ellipse cx="44" cy="134" rx="7" ry="5"></ellipse><rect x="15" y="140" width="26" height="11" rx="4"></rect></g><g fill="#FFFFFF"><ellipse cx="28" cy="130" rx="16" ry="14"></ellipse><circle cx="18" cy="116" r="7"></circle><circle cx="28" cy="112" r="7"></circle><circle cx="38" cy="116" r="7"></circle><ellipse cx="44" cy="134" rx="7" ry="5"></ellipse><rect x="15" y="140" width="26" height="11" rx="4"></rect></g><path d="M20 120 v8 M28 117 v9 M36 120 v8" stroke="#17151C" stroke-width="2.5" stroke-linecap="round"></path><path d="M16 145 h24" stroke="#17151C" stroke-width="2.5"></path></g><g transform="translate(270,0) scale(-1,1)"><g stroke="#17151C" stroke-width="8" stroke-linejoin="round" fill="#17151C"><ellipse cx="28" cy="130" rx="16" ry="14"></ellipse><circle cx="18" cy="116" r="7"></circle><circle cx="28" cy="112" r="7"></circle><circle cx="38" cy="116" r="7"></circle><ellipse cx="44" cy="134" rx="7" ry="5"></ellipse><rect x="15" y="140" width="26" height="11" rx="4"></rect></g><g fill="#FFFFFF"><ellipse cx="28" cy="130" rx="16" ry="14"></ellipse><circle cx="18" cy="116" r="7"></circle><circle cx="28" cy="112" r="7"></circle><circle cx="38" cy="116" r="7"></circle><ellipse cx="44" cy="134" rx="7" ry="5"></ellipse><rect x="15" y="140" width="26" height="11" rx="4"></rect></g><path d="M20 120 v8 M28 117 v9 M36 120 v8" stroke="#17151C" stroke-width="2.5" stroke-linecap="round"></path><path d="M16 145 h24" stroke="#17151C" stroke-width="2.5"></path></g><g transform="translate(110,206)"><path d="M-32 28 L-32 20 Q-32 10 -20 9 L-6 7 L-4 -8 Q7 -12 18 -8 L20 28 Z" fill="#FFFFFF" stroke="#17151C" stroke-width="4" stroke-linejoin="round"></path><rect x="-35" y="25" width="58" height="8" rx="3" fill="#E23D3D" stroke="#17151C" stroke-width="4"></rect><path d="M-18 19 Q-2 10 13 3" fill="none" stroke="#E23D3D" stroke-width="5" stroke-linecap="round"></path><path d="M-8 2 l9 -2 M-9 9 l9 -2" stroke="#17151C" stroke-width="2.5" stroke-linecap="round"></path><path d="M-32 21 Q-27 14 -20 14" fill="none" stroke="#E23D3D" stroke-width="4" stroke-linecap="round"></path></g><g transform="translate(160,206) scale(-1,1)"><path d="M-32 28 L-32 20 Q-32 10 -20 9 L-6 7 L-4 -8 Q7 -12 18 -8 L20 28 Z" fill="#FFFFFF" stroke="#17151C" stroke-width="4" stroke-linejoin="round"></path><rect x="-35" y="25" width="58" height="8" rx="3" fill="#E23D3D" stroke="#17151C" stroke-width="4"></rect><path d="M-18 19 Q-2 10 13 3" fill="none" stroke="#E23D3D" stroke-width="5" stroke-linecap="round"></path><path d="M-8 2 l9 -2 M-9 9 l9 -2" stroke="#17151C" stroke-width="2.5" stroke-linecap="round"></path><path d="M-32 21 Q-27 14 -20 14" fill="none" stroke="#E23D3D" stroke-width="4" stroke-linecap="round"></path></g><g mask="url(#MID)"><circle cx="135" cy="100" r="84" fill="#E3A866"></circle><circle cx="135" cy="100" r="80" fill="none" stroke="#C98A45" stroke-width="5"></circle><ellipse cx="95" cy="66" rx="9" ry="7" fill="#5A3925" transform="rotate(-20 95 66)"></ellipse><ellipse cx="139" cy="46" rx="7" ry="6" fill="#5A3925"></ellipse><ellipse cx="183" cy="144" rx="9" ry="7" fill="#5A3925" transform="rotate(25 183 144)"></ellipse><ellipse cx="91" cy="146" rx="8" ry="6" fill="#5A3925"></ellipse><ellipse cx="195" cy="98" rx="6" ry="5" fill="#5A3925"></ellipse><ellipse cx="137" cy="170" rx="7" ry="5" fill="#5A3925"></ellipse></g><ellipse cx="115" cy="102" rx="9" ry="12" fill="#17151C"></ellipse><ellipse cx="157" cy="102" rx="9" ry="12" fill="#17151C"></ellipse><circle cx="118" cy="97" r="3.5" fill="#FFFFFF"></circle><circle cx="160" cy="97" r="3.5" fill="#FFFFFF"></circle><ellipse cx="99" cy="124" rx="10" ry="6" fill="#F28FA6" opacity="0.65"></ellipse><ellipse cx="173" cy="124" rx="10" ry="6" fill="#F28FA6" opacity="0.65"></ellipse><path d="M119 126 Q136 144 153 126" fill="none" stroke="#17151C" stroke-width="6" stroke-linecap="round"></path><path d="M232 50 l7 4 -3 7 -7 -3z" fill="#E3A866"></path><path d="M244 70 l5 2 -2 5 -5 -2z" fill="#E3A866"></path>';bird.n=(bird.n||0)+1;const id='ckm'+bird.n;return`<svg class="logo" viewBox="0 0 270 245" aria-hidden="true"${style?` style="${style}"`:''}>${B.split('MID').join(id)}</svg>`}
 
 </script>
 <script type="text/plain" id="ocrWorkerSrc">/*! For license information please see worker.min.js.LICENSE.txt */
